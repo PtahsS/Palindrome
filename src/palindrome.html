@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Палиндром</title>
+</head>
+<body>
+	<script>
+		
+
+const palindrome = (number, getRes) => {
+	let count = 0;
+	let resultData = [];
+
+
+	const pal = (number, getRes) => {
+
+		// Functions
+
+		const writeStep = () => {
+			const answer = {
+				number,
+				count
+			}
+			resultData.push(answer);
+		};
+		
+		const unEqualCheck = (number) => {
+			let numString =  number.toString().split('');
+			const isUnEqual = numString.findIndex((item, index, array) => array[index] != array[array.length - 1 - index]);
+			return isUnEqual;
+		}
+
+		const sum = () => number + +number.toString().split('').reverse().join('');
+		
+		// Code
+
+		writeStep();
+		
+		if (unEqualCheck(number) >= 0) {
+			count++;
+			pal(sum(), getRes);
+		} else {
+			getRes(resultData);
+		}
+	}
+	
+	pal(number, getRes);
+
+}
+
+function plural (count) {
+    let word;
+    if (count % 10 === 1){
+        word = "итерации";
+    } else {
+            word = "итераций";
+    }
+    return word;  
+}
+
+function showResult (value) {
+	const count = value[value.length - 1].count;
+	if (count === 0) {
+		console.log(`Число ${value[0].number} является палиндромом.`)
+	} else {
+		console.log(`Число ${value[0].number} становится палиндромом после ${count} ${plural(count)}.`);
+		console.log('Рассчетные значения: ', value);
+	}
+}
+
+const a = palindrome(59, showResult);
+const b = palindrome(121, showResult);
+const с = palindrome(13, showResult);
+
+	</script>
+</body>
+</html>
